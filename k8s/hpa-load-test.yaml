@@ -1,0 +1,11 @@
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: hpa-load-test
+spec:
+  parallelism: 1
+  cleanup: post
+  script:
+    configMap:
+      name: hpa-load-test-script
+      file: hpa-load-test.js

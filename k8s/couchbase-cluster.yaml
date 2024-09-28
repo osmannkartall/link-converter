@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: couchbase-db-auth
+type: Opaque
+data:
+  username: QWRtaW5pc3RyYXRvcg==  # Administrator
+  password: cGFzc3dvcmQ=          # password
+---
+apiVersion: couchbase.com/v2
+kind: CouchbaseBucket
+metadata:
+  name: link-conversion
+spec:
+  memoryQuota: 128Mi
+---
+apiVersion: couchbase.com/v2
+kind: CouchbaseBucket
+metadata:
+  name: link-conversion-failure
+spec:
+  memoryQuota: 128Mi
+---
+apiVersion: couchbase.com/v2
+kind: CouchbaseCluster
+metadata:
+  name: couchbase-db  
+spec:
+  image: couchbase/server:7.6.3 
+  security:
+    adminSecret: couchbase-db-auth
+  networking:
+    exposeAdminConsole: true
+    adminConsoleServices:
+    - data
+  cluster:
+    dataServiceMemoryQuota: 512Mi
+  buckets:
+    managed: true
+  servers:
+  - size: 3  
+    name: all_services
+    services:
+    - data
+    - index
+    - query

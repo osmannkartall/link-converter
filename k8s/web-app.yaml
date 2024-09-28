@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: couchbase-config
+data:
+  SPRING_COUCHBASE_CONNECTION_STRING: "couchbase://couchbase-db"
+  SPRING_COUCHBASE_USERNAME: "Administrator"
+  SPRING_COUCHBASE_BUCKET_NAME: "link-conversion"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: link-converter-app
+  labels:
+    app: link-converter-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: link-converter-app
+  template:
+    metadata:
+      labels:
+        app: link-converter-app
+    spec:
+      containers:
+      - name: link-converter-app
+        image: link-converter-app
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_COUCHBASE_CONNECTION_STRING
+          valueFrom:
+            configMapKeyRef:
+              name: couchbase-config
+              key: SPRING_COUCHBASE_CONNECTION_STRING
+        - name: SPRING_COUCHBASE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: couchbase-config
+              key: SPRING_COUCHBASE_USERNAME
+        - name: SPRING_COUCHBASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: couchbase-secret
+              key: SPRING_COUCHBASE_PASSWORD
+        - name: SPRING_COUCHBASE_BUCKET_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: couchbase-config
+              key: SPRING_COUCHBASE_BUCKET_NAME
+        - name: SPRING_PROFILES_ACTIVE
+          value: "couchbase"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: link-converter-app-service
+spec:
+  selector:
+    app: link-converter-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: link-converter-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: link-converter-app
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
