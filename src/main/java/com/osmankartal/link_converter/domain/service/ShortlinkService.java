@@ -1,28 +1,28 @@
 package com.osmankartal.link_converter.domain.service;
 
 import com.osmankartal.link_converter.domain.exception.LinkConversionBusinessException;
+import com.osmankartal.link_converter.domain.model.Base62;
+import com.osmankartal.link_converter.domain.model.IdGenerator;
+import com.osmankartal.link_converter.domain.model.IdGeneratorProvider;
 import com.osmankartal.link_converter.domain.model.LinkConversionConfig;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
 
 @Service
 public class ShortlinkService {
 
-    private static final int SHORTLINK_HASH_LENGTH = 10;
-    private static final String SHORTLINK_HASH_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
-    private static final Random RANDOM = new Random();
+    private final IdGenerator idGenerator;
+
+    public ShortlinkService(IdGeneratorProvider idGeneratorProvider) {
+        idGenerator = idGeneratorProvider.createIdGenerator();
+    }
 
     public String createShortlink() {
         return LinkConversionConfig.SHORTLINK_DOMAIN + "/" + createShortlinkHash();
     }
 
     private String createShortlinkHash() {
-        StringBuilder sb = new StringBuilder(SHORTLINK_HASH_LENGTH);
-        for (int i = 0; i < SHORTLINK_HASH_LENGTH; i++) {
-            sb.append(SHORTLINK_HASH_CHARACTERS.charAt(RANDOM.nextInt(SHORTLINK_HASH_CHARACTERS.length())));
-        }
-        return sb.toString();
+        return Base62.encode(idGenerator.nextId());
     }
 
     public void validateShortlink(String shortlink) {

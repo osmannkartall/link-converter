@@ -7,14 +7,27 @@ data:
   SPRING_COUCHBASE_USERNAME: "Administrator"
   SPRING_COUCHBASE_BUCKET_NAME: "link-conversion"
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: link-converter-app-service
+spec:
+  selector:
+    app: link-converter-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: link-converter-app
   labels:
     app: link-converter-app
 spec:
-  replicas: 2
+  serviceName: link-converter-app-service
   selector:
     matchLabels:
       app: link-converter-app
@@ -52,6 +65,10 @@ spec:
               key: SPRING_COUCHBASE_BUCKET_NAME
         - name: SPRING_PROFILES_ACTIVE
           value: "couchbase"
+        - name: STATEFULSET_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name 
         resources:
           requests:
             memory: "256Mi"
@@ -60,19 +77,6 @@ spec:
             memory: "512Mi"
             cpu: "200m"
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: link-converter-app-service
-spec:
-  selector:
-    app: link-converter-app
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
-  type: LoadBalancer
----
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -80,7 +84,7 @@ metadata:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: Deployment
+    kind: StatefulSet
     name: link-converter-app
   minReplicas: 2
   maxReplicas: 4
@@ -90,4 +94,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 70

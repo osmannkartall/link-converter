@@ -4,6 +4,7 @@ import com.osmankartal.link_converter.adapter.test.FakeLinkConversionPort;
 import com.osmankartal.link_converter.adapter.test.LinkConversionTestConfig;
 import com.osmankartal.link_converter.core.command.CreateShortlinkCommand;
 import com.osmankartal.link_converter.domain.exception.LinkConversionBusinessException;
+import com.osmankartal.link_converter.domain.model.IdGeneratorProvider;
 import com.osmankartal.link_converter.domain.model.LinkConversionConfig;
 import com.osmankartal.link_converter.domain.service.ShortlinkService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,8 @@ class CreateShortlinkHandlerTest {
     private static final String INVALID_DEEPLINK = "invalid-deeplink";
     private static final String INVALID_DOMAIN_FOR_DEEPLINK = "invalid://";
 
-    private final ShortlinkService shortlinkService = new ShortlinkService();
+    private final IdGeneratorProvider idGeneratorProvider = new IdGeneratorProvider();
+    private final ShortlinkService shortlinkService = new ShortlinkService(idGeneratorProvider);
     private final FakeLinkConversionPort fakeLinkConversionPort = new FakeLinkConversionPort();
     private final CreateShortlinkHandler createShortlinkHandler = new CreateShortlinkHandler(fakeLinkConversionPort, shortlinkService);
 

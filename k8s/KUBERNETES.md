@@ -99,7 +99,20 @@ default-couchbase-operator-6cb589d5b4-lcmnq               1/1     Running   0   
 
 ## 3. Creating Spring Boot Deployment with a Load Balancer and Horizontal Pod Autoscaler
 
-**3.1. Build the image inside minikube**
+**3.1. Remove the existing build**
+
+```bash
+rm -rf build
+```
+
+**3.2. Build the jar**
+
+```bash
+# Exclude integration tests for quicker build
+./gradlew clean build -x integrationTest
+```
+
+**3.3. Build the image inside minikube**
 
 ```bash
 eval $(minikube docker-env)
@@ -109,13 +122,13 @@ eval $(minikube docker-env)
 docker build -t link-converter-app .
 ```
 
-**3.2. Create a secret for the password**
+**3.4. Create a secret for the password**
 
 ```bash
 kubectl create secret generic couchbase-secret --from-literal=SPRING_COUCHBASE_PASSWORD=$SPRING_COUCHBASE_PASSWORD
 ```
 
-**3.3. Apply the Spring Boot deployment with a load balancer and horizontal pod autoscaler**
+**3.5. Apply the Spring Boot deployment with a load balancer and horizontal pod autoscaler**
 
 ```bash
 kubectl apply -f k8s/web-app.yaml

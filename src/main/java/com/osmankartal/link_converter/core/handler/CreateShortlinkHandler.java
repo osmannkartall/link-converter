@@ -30,20 +30,10 @@ public class CreateShortlinkHandler implements Handler<CreateShortlinkCommand, L
         return linkConversionPort.save(LinkConversion.builder()
                 .url(createShortlinkCommand.getUrl())
                 .deeplink(createShortlinkCommand.getDeeplink())
-                .shortlink(getUniqueShortlink())
+                .shortlink(shortlinkService.createShortlink())
                 .createdAt(now)
                 .updatedAt(now)
                 .build());
-    }
-
-    private String getUniqueShortlink() {
-        String shortlink = shortlinkService.createShortlink();
-
-        while (linkConversionPort.resolveShortlink(shortlink).isPresent()) {
-            shortlink = shortlinkService.createShortlink();
-        }
-
-        return shortlink;
     }
 
 }

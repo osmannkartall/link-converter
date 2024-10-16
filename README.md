@@ -2,6 +2,8 @@
 
 Link Converter is a [URL shortening](https://en.wikipedia.org/wiki/URL_shortening) project with support for [mobile deeplinking](https://en.wikipedia.org/wiki/Mobile_deep_linking).
 
+Link Converter shortens urls by utilizing [Snowflake IDs](https://en.wikipedia.org/wiki/Snowflake_ID) and Base62 encoding. Refer to the [ID_GENERATOR.md](ID_GENERATOR.md) for detailed explanation.
+
 Link Converter is a **Spring Boot** application built with **Java 22**, integrating **Postgres**, **Redis**, and **Couchbase**, and following the principles of **Hexagonal Architecture**.
 
 ## Running

@@ -5,6 +5,7 @@ import com.osmankartal.link_converter.adapter.test.LinkConversionTestConfig;
 import com.osmankartal.link_converter.core.command.ResolveShortlinkCommand;
 import com.osmankartal.link_converter.domain.exception.LinkConversionBusinessException;
 import com.osmankartal.link_converter.domain.exception.LinkConversionNotFoundException;
+import com.osmankartal.link_converter.domain.model.IdGeneratorProvider;
 import com.osmankartal.link_converter.domain.model.LinkConversion;
 import com.osmankartal.link_converter.domain.model.LinkConversionConfig;
 import com.osmankartal.link_converter.domain.service.ShortlinkService;
@@ -18,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ResolveShortlinkHandlerTest {
 
-    private final ShortlinkService shortlinkService = new ShortlinkService();
+    private final IdGeneratorProvider idGeneratorProvider = new IdGeneratorProvider();
+    private final ShortlinkService shortlinkService = new ShortlinkService(idGeneratorProvider);
     private final FakeLinkConversionPort fakeLinkConversionPort = new FakeLinkConversionPort();
     private final ResolveShortlinkHandler resolveShortlinkHandler = new ResolveShortlinkHandler(fakeLinkConversionPort, shortlinkService);
 
