@@ -129,65 +129,64 @@ rm -rf load-test/data
 ```text
     █ Step 1: Create Shortlink from url
 
-    ✗ POST /link_conversions - status is 200
-    ↳  99% — ✓ 999476 / ✗ 524
+        ✗ POST /link_conversions - status is 200
+         ↳  99% — ✓ 999074 / ✗ 926
 
-    █ Step 2: Resolve url and deeplink using shortlink
+     █ Step 2: Resolve url and deeplink using shortlink
 
-    ✗ GET /link_conversions - status is 200
-    ↳  99% — ✓ 999177 / ✗ 299
+        ✗ GET /link_conversions - status is 200
+         ↳  99% — ✓ 999067 / ✗ 16
 
-    checks.........................: 99.95%  ✓ 1998653     ✗ 823
-    data_received..................: 377 MB  212 kB/s
-    data_sent......................: 401 MB  225 kB/s
-    group_duration.................: avg=769.61ms min=60.77ms   med=1s      max=1m0s    p(90)=1s      p(95)=1s
-    http_req_blocked...............: avg=752.3µs  min=0s        med=1.33µs  max=19.89s  p(90)=2.79µs  p(95)=4.16µs
-    http_req_connecting............: avg=722.78µs min=0s        med=0s      max=19.89s  p(90)=0s      p(95)=0s
-    http_req_duration..............: avg=5.99ms   min=0s        med=2.22ms  max=1m6s    p(90)=6.62ms  p(95)=9.2ms
-    { expected_response:true }...: avg=5.87ms   min=17.29µs   med=2.23ms  max=1m6s    p(90)=6.62ms  p(95)=9.2ms
-    http_req_failed................: 0.04%   ✓ 823         ✗ 1998653
-    http_req_receiving.............: avg=33.37µs  min=-21806ns  med=13.62µs max=45.94ms p(90)=62.08µs p(95)=105.29µs
-    http_req_sending...............: avg=11.69µs  min=-211347ns med=5.62µs  max=38.2ms  p(90)=13.62µs p(95)=21.58µs
-    http_req_tls_handshaking.......: avg=0s       min=0s        med=0s      max=0s      p(90)=0s      p(95)=0s
-    http_req_waiting...............: avg=5.95ms   min=0s        med=2.18ms  max=1m6s    p(90)=6.56ms  p(95)=9.12ms
-    http_reqs......................: 1999476 1124.768265/s
-    iteration_duration.............: avg=1.53s    min=60.83ms   med=1.5s    max=1m1s    p(90)=1.51s   p(95)=1.51s
-    iterations.....................: 1000000 562.531516/s
-    vus............................: 1       min=1         max=1000
-    vus_max........................: 1000    min=1000      max=1000
+    checks.........................: 99.95%  ✓ 1998141    ✗ 942
+    data_received..................: 378 MB  225 kB/s
+    data_sent......................: 402 MB  239 kB/s
+    group_duration.................: avg=768.2ms  min=103.73ms   med=1s     max=30.5s    p(90)=1s      p(95)=1.01s
+    http_req_blocked...............: avg=892.07µs min=0s         med=1.08µs max=19.74s   p(90)=2.87µs  p(95)=3.95µs
+    http_req_connecting............: avg=859.04µs min=0s         med=0s     max=19.74s   p(90)=0s      p(95)=0s
+    http_req_duration..............: avg=3.79ms   min=0s         med=2.07ms max=999.65ms p(90)=6.86ms  p(95)=10.27ms
+    { expected_response:true }...: avg=3.79ms   min=265.66µs   med=2.07ms max=999.65ms p(90)=6.86ms  p(95)=10.27ms
+    http_req_failed................: 0.04%   ✓ 942        ✗ 1998141
+    http_req_receiving.............: avg=29.47µs  min=-2231348ns med=9.37µs max=173.25ms p(90)=42.33µs p(95)=80.62µs
+    http_req_sending...............: avg=15.36µs  min=-2096096ns med=4.75µs max=48.41ms  p(90)=16.87µs p(95)=44.33µs
+    http_req_tls_handshaking.......: avg=0s       min=0s         med=0s     max=0s       p(90)=0s      p(95)=0s
+    http_req_waiting...............: avg=3.74ms   min=0s         med=2.03ms max=999.48ms p(90)=6.79ms  p(95)=10.18ms
+    http_reqs......................: 1999083 1189.48315/s
+    iteration_duration.............: avg=1.53s    min=103.86ms   med=1.5s   max=31.51s   p(90)=1.51s   p(95)=1.52s
+    iterations.....................: 1000000 595.014389/s
+    vus............................: 6       min=6        max=1000
+    vus_max........................: 1000    min=1000     max=1000
 
 
-running (0h29m37.7s), 0000/1000 VUs, 1000000 complete and 0 interrupted iterations
-shortlinkConversionAndRetri... ✓ [ 100% ] 1000 VUs  0h28m06.5s/2h0m0s  1000000/1000000 iters, 1000 per VU
+running (0h28m00.6s), 0000/1000 VUs, 1000000 complete and 0 interrupted iterations
+shortlinkConversionAndRetri... ✓ [ 100% ] 1000 VUs  0h27m22.8s/2h0m0s  1000000/1000000 iters, 1000 per VU
 ```
 
 ### `shortlink-read-load-test.js` Results
 
 ```text
-
     ✗ is status 200
-    ↳  99% — ✓ 709409 / ✗ 241
+     ↳  99% — ✓ 711651 / ✗ 179
 
-    checks.........................: 99.96% ✓ 709409     ✗ 241
-    data_received..................: 150 MB 178 kB/s
-    data_sent......................: 117 MB 139 kB/s
-    http_req_blocked...............: avg=2.04ms  min=0s       med=1.66µs max=19.75s   p(90)=3.83µs  p(95)=5.41µs
-    http_req_connecting............: avg=2.03ms  min=0s       med=0s     max=19.75s   p(90)=0s      p(95)=0s
-    http_req_duration..............: avg=2.57ms  min=0s       med=1.98ms max=159.88ms p(90)=4.75ms  p(95)=6.93ms
-    { expected_response:true }...: avg=2.57ms  min=298.37µs med=1.98ms max=159.88ms p(90)=4.75ms  p(95)=6.93ms
-    http_req_failed................: 0.03%  ✓ 241        ✗ 709409
-    http_req_receiving.............: avg=31.42µs min=0s       med=15.7µs max=16.81ms  p(90)=62.87µs p(95)=98.25µs
-    http_req_sending...............: avg=10.69µs min=0s       med=6.29µs max=80.24ms  p(90)=13.79µs p(95)=21.5µs
-    http_req_tls_handshaking.......: avg=0s      min=0s       med=0s     max=0s       p(90)=0s      p(95)=0s
-    http_req_waiting...............: avg=2.53ms  min=0s       med=1.94ms max=143.9ms  p(90)=4.69ms  p(95)=6.85ms
-    http_reqs......................: 709650 844.198694/s
-    iteration_duration.............: avg=1.01s   min=1s       med=1s     max=31s      p(90)=1s      p(95)=1s
-    iterations.....................: 709649 844.197504/s
-    vus............................: 5      min=5        max=1000
+    checks.........................: 99.97% ✓ 711651     ✗ 179
+    data_received..................: 150 MB 179 kB/s
+    data_sent......................: 117 MB 140 kB/s
+    http_req_blocked...............: avg=287.76µs min=0s       med=1.66µs  max=19.71s  p(90)=3.29µs  p(95)=4.75µs
+    http_req_connecting............: avg=284.8µs  min=0s       med=0s      max=19.71s  p(90)=0s      p(95)=0s
+    http_req_duration..............: avg=3.62ms   min=0s       med=2.34ms  max=2.18s   p(90)=5.4ms   p(95)=7.74ms
+    { expected_response:true }...: avg=3.62ms   min=288.83µs med=2.34ms  max=2.18s   p(90)=5.4ms   p(95)=7.74ms
+    http_req_failed................: 0.02%  ✓ 179        ✗ 711651
+    http_req_receiving.............: avg=32.28µs  min=0s       med=16.41µs max=20.61ms p(90)=64.75µs p(95)=99.41µs
+    http_req_sending...............: avg=10.33µs  min=0s       med=6.37µs  max=19.34ms p(90)=13.5µs  p(95)=20.54µs
+    http_req_tls_handshaking.......: avg=0s       min=0s       med=0s      max=0s      p(90)=0s      p(95)=0s
+    http_req_waiting...............: avg=3.58ms   min=0s       med=2.3ms   max=2.18s   p(90)=5.34ms  p(95)=7.66ms
+    http_reqs......................: 711830 846.912887/s
+    iteration_duration.............: avg=1.01s    min=1s       med=1s      max=31.01s  p(90)=1s      p(95)=1s
+    iterations.....................: 711830 846.912887/s
+    vus............................: 4      min=4        max=1000
     vus_max........................: 1000   min=1000     max=1000
 
 
-running (14m00.6s), 0000/1000 VUs, 709649 complete and 1 interrupted iterations
+running (14m00.5s), 0000/1000 VUs, 711830 complete and 0 interrupted iterations
 default ✓ [ 100% ] 0000/1000 VUs  14m0s
 ```
 
