@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IdGeneratorTest {
 
+    // This code is adapted from https://github.com/twitter-archive/snowflake/releases/tag/snowflake-2010
+
     @Setter
     @Getter
     static class StaticTimeIdGenerator extends IdGenerator {
