@@ -40,7 +40,7 @@ public class LinkConversionController {
                         resolveShortlinkHandler.execute(ResolveShortlinkCommand.builder().shortlink(domain + "/" + hash).build())));
     }
 
-    @GetMapping("/{shortUrl}")
+    @GetMapping("/{shortUrl}/**")
     public void redirect(@PathVariable String shortUrl, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendRedirect("/link_conversions?hash=" + shortUrl);
     }
