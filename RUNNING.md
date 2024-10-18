@@ -176,7 +176,7 @@ docker exec couchbase-db cbq -s "SELECT * FROM \`link-conversion\` WHERE META().
 Single Record:
 
 ```bash
-docker exec couchbase-db cbq -s "SELECT * FROM \`link-conversion\` WHERE META().id LIKE 'link-conversion-cache::https://li.con/fqjj14v2ra';" -u Administrator -p password -e 127.0.0.1:8093
+docker exec couchbase-db cbq -s "SELECT * FROM \`link-conversion\` WHERE META().id LIKE 'link-conversion-cache::http://localhost:8080/fqjj14v2ra';" -u Administrator -p password -e 127.0.0.1:8093
 ```
 
 **Redis**
@@ -190,7 +190,7 @@ docker exec redis redis-cli KEYS "*"
 Single Record:
 
 ```bash
-docker exec redis redis-cli get "link-conversion-cache::https://li.con/tbci3mwf00"
+docker exec redis redis-cli get "link-conversion-cache::http://localhost:8080/tbci3mwf00"
 ```
 
 ## Accessing Couchbase Web Console

@@ -60,6 +60,8 @@ docker compose -f docker-compose-couchbase.yml --profile prod down -v --rmi all
 
 ## Usage
 
+**Note:** Example requests can be found at `http://localhost:8080/swagger-ui/index.html#/`
+
 **1. Create a shortlink from "url". "deeplink" is optional.**
 
 ```bash
@@ -77,7 +79,7 @@ Note that the value of the shortlink will be different from "y3e3m1d75v".
 
 ```json
 {
-    "shortlink": "https://li.con/y3e3m1d75v"
+    "shortlink": "http://localhost:8080/y3e3m1d75v"
 }
 ```
 
@@ -96,7 +98,9 @@ Response:
 }
 ```
 
-**Note:** Example requests can be found at `http://localhost:8080/swagger-ui/index.html#/`
+**3. Redirect to the original URL from the short URL**
+
+Navigate to `http://localhost:8080/y3e3m1d75v` in your browser.
 
 ## System Design
 
@@ -111,7 +115,7 @@ There are only two models: `link-conversion` and `link-conversion-failure`. `lin
     "id": 1,
     "url": "https://any.domain.com",
     "deeplink": "app://home",
-    "shortlink": "https://li.con/123456789a",
+    "shortlink": "http://localhost:8080/123456789a",
     "createdAt": "2024-09-18T14:30:45",
     "updatedAt": "2024-09-18T14:40:10"
 }

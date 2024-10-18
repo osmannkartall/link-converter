@@ -148,7 +148,7 @@ The output should contain a URL like:
 http://127.0.0.1:58052
 ```
 
-**Use the given URL to send a request**
+**Replace `http://localhost:8080` with the given URL to send a request**
 
 ```bash
 curl -X POST http://127.0.0.1:58052/link_conversions \

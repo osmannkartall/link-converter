@@ -19,8 +19,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(LinkConversionController.class)
@@ -135,5 +134,13 @@ public class LinkConversionControllerTest {
                 .andReturn();
 
         assertEquals("{\"message\":\"Cannot find the record for the given shortlink\"}", mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    void redirectToOriginalUrl() throws Exception {
+        mockMvc.perform(get("/a123da231ad")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location", "/link_conversions?hash=a123da231ad"));
     }
 }

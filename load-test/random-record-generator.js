@@ -3,7 +3,7 @@ const path = require("path");
 
 const baseUrl = "https://any.domain.com/item";
 const baseDeeplink = "app://item&id="
-const baseShortlink = "https://li.con"
+const baseShortlink = "http://localhost:8080"
 
 function getRandomNumber(digits) {
     return Math.floor(Math.random() * (Math.pow(10, digits) - Math.pow(10, digits - 1)) + Math.pow(10, digits - 1));
